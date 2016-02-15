@@ -1,0 +1,3 @@
+rootProject.name = 'CareRx'
+
+include ':app'
