@@ -13,7 +13,7 @@ export default createReducer(initialState, {
     'LOGIN_USER_REQUEST': state => {
         return Object.assign({}, state, {
             'isFetching': true,
-            'loadingMessage':'Login is in progress. Please Wait.'
+            'loadingMessage':'Please Wait.'
         });
     },
     'LOGIN_USER_SUCCESS': state => {

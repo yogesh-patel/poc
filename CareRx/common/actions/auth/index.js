@@ -13,7 +13,7 @@ export function loginUser(userName, password, redirect = "/") {
             clearInterval(interval);
             dispatch({type:'LOGIN_USER_SUCCESS'});
             Actions.dashboard();
-        },10000);
+        },1000);
     }
 }
 

@@ -69,7 +69,7 @@ class LoginView extends React.Component {
             <View style={{flex:1}}>
                 <ScrollView style={styles.container}>
                     <View style={styles.logoBox}>
-                        <Image source={require('../common/images/logo.png')}/>
+                        <Image source={require('../common/images/logoNew.png')}/>
                     </View>
                     <View style={styles.loginBox}>
                         <View style={{flex:1}}>
@@ -85,7 +85,7 @@ class LoginView extends React.Component {
                                 onEndEditing={this.onUserNameSubmit.bind(this)}
                                 selectTextOnFocus
                                 enablesReturnKeyAutomatically
-                                keyboardAppearance="dark"
+                                keyboardAppearance="light"
                                 autoCapitalize="none"
                                 />
                             <TextInput
@@ -103,7 +103,7 @@ class LoginView extends React.Component {
                                 onEndEditing={this.onPasswordSubmit.bind(this)}
                                 selectTextOnFocus
                                 enablesReturnKeyAutomatically
-                                keyboardAppearance="dark"
+                                keyboardAppearance="light"
                                 autoCapitalize="none"
                                 />
                         </View>

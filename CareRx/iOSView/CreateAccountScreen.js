@@ -272,36 +272,36 @@ var styles = StyleSheet.create({
     cancelBox:{
         padding:10,
         alignSelf:'flex-start',
-        flexDirection:'row',
-        flex:1
+        flex:0.5
     },
     cancelLabel:{
         color:'#0080FF',
         fontSize:18,
-        fontWeight:'bold'
+        fontWeight:'bold',
     },
     doneBox:{
         padding:10,
         alignSelf:'flex-end',
         justifyContent:'flex-end',
-        flexDirection:'row',
-        flex:1
+        flex:0.5
     },
     doneLabel:{
         color:'#CCCCCC',
         fontSize:18,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        textAlign:'right'
     },
     titleBox:{
         padding:10,
         alignSelf:'center',
-        flexDirection:'row',
+        alignItems:'center',
         flex:1
     },
     title:{
         color:'#000000',
         fontSize:18,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        textAlign:'center'
     },
     separator:{
         backgroundColor:'#dddddd',
