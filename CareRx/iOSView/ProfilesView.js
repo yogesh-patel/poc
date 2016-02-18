@@ -38,6 +38,12 @@ var EDIT_BUTTONS = [
 var EDIT_CANCEL_INDEX = 2;
 
 class ProfilesView extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            selectedIndex:0
+        };
+    }
     showActionSheet() {
         ActionSheetIOS.showActionSheetWithOptions({
                 options: BUTTONS,
@@ -61,8 +67,26 @@ class ProfilesView extends React.Component {
                 }
             });
     }
+    _onChange(event) {
+        LayoutAnimation.easeInEaseOut();
+        this.setState({
+            selectedIndex: event.nativeEvent.selectedSegmentIndex,
+        });
+    }
+    _onValueChange(value) {
 
+        console.log(value);
+        this.setState({
+            selectedCategory: value,
+        });
+    }
     render() {
+        var selectedOption = null;
+        if(this.state.selectedIndex == 0){
+            selectedOption = <MedicationProfile />;
+        }else{
+            selectedOption = <View />;
+        }
         return (
             <View style={styles.container}>
                 <Image style={{width:120,height:38,marginLeft:5}} source={require('../common/images/logoNew.png')}/>
@@ -134,11 +158,12 @@ class ProfilesView extends React.Component {
                     <View style={{flex:1}}>
                         <View style={{margin: 10}}>
                             <SegmentedControlIOS tintColor='#2090CC'
-                                                 selectedIndex={0}
-                                                 values={['Medications', 'Allergies','Lab Reports']}/>
+                                                 selectedIndex={this.state.selectedIndex}
+                                                 values={['Medications', 'Allergies','Lab Reports']}
+                                                 onChange = {this._onChange.bind(this)}/>
                         </View>
                         <View style={{flex:1}}>
-                            <MedicationProfile />
+                            {selectedOption}
                         </View>
                     </View>
                 </View>

@@ -17,7 +17,7 @@ export function requireMaskComponent(Component) {
                     {
                         this.props.isFetching
                             ?
-                            <View style={[styles.maskBox,{backgroundColor:'#000000',opacity:0.7}]}>
+                            <View style={[styles.maskBox,{backgroundColor:'#000000',opacity:0.5}]}>
 
                             </View>
                             :

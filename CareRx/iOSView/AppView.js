@@ -18,6 +18,8 @@ import React, {
     TouchableOpacity} from 'react-native';
 
 import ProfilesView from './ProfilesView';
+import StoreView from './StoreView';
+import MoreOptions from './MoreOptions';
 
 class AppView extends React.Component {
     constructor(props){
@@ -51,7 +53,7 @@ class AppView extends React.Component {
                           selectedTab: 'stores'
                         });
                       }}>
-                    <View />
+                    <StoreView />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     icon={require('../common/images/transactions.png')}
@@ -73,7 +75,7 @@ class AppView extends React.Component {
                           selectedTab: 'more'
                         });
                       }}>
-                    <View />
+                    <MoreOptions />
                 </TabBarIOS.Item>
             </TabBarIOS>
         );

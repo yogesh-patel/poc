@@ -5,10 +5,12 @@ import React, {AppRegistry, Navigator, StyleSheet, Text, View} from 'react-nativ
 import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flux'
 import AppView from './AppView';
 import CreateAccountScreen from './CreateAccountScreen';
+import RxDetail from './RxDetail';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LoginView from './LoginView';
 import {requireMaskComponent} from './MaskWrapComponent';
+import StoreDetailView from './StoreDetailView';
 
 class RouterConfigComponent extends React.Component{
     render(){
@@ -29,6 +31,14 @@ class RouterConfigComponent extends React.Component{
                 <Route name="createAccount"
                        sceneConfig={ Navigator.SceneConfigs.FloatFromBottom }
                        component={requireMaskComponent(CreateAccountScreen)}
+                       hideNavBar={true} type="push" />
+                <Route name="rxDetail"
+                       sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={requireMaskComponent(RxDetail)}
+                       hideNavBar={true} type="push" />
+                <Route name="storeDetail"
+                       sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={requireMaskComponent(StoreDetailView)}
                        hideNavBar={true} type="push" />
             </Router>
         );
