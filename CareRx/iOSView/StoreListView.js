@@ -42,7 +42,8 @@ class StoreListView extends React.Component {
     }
 
     renderStoreData(data) {
-        var address = data.address1 + ' ' + data.city + ',' + data.state + ' ' + data.zip;
+        var address1 = data.address1;
+        var address2 = data.city + ', ' + data.state + ' ' + data.zip;
         return (
             <TouchableOpacity style={{flex:1}}
                               key={data.id+''}
@@ -54,13 +55,42 @@ class StoreListView extends React.Component {
                                 <View style={styles.dueDateBox}>
                                     <Text style={[styles.orderLabel]}>{data.name}</Text>
                                 </View>
-
+                            </View>
+                            <View style={[styles.extraInfoBox,{marginTop:5}]}>
+                                <View style={styles.dueDateBox}>
+                                    <Text style={[styles.inventoryDate]}>
+                                        {address1}
+                                    </Text>
+                                </View>
                             </View>
                             <View style={styles.extraInfoBox}>
                                 <View style={styles.dueDateBox}>
                                     <Text style={[styles.inventoryDate]}>
-                                        {address}
+                                        {address2}
                                     </Text>
+                                </View>
+                            </View>
+                            <View style={[styles.extraInfoBox,{marginTop:5}]}>
+                                <View style={styles.phoneBox}>
+                                    <View style={{width:20}}>
+                                        <Image style={{width:16,height:16,marginRight:5}} source={require('../common/images/phone.png')}/>
+                                    </View>
+                                    <View style={styles.dueDateBox}>
+                                        <Text style={[styles.inventoryDate]}>
+                                            {data.phone}
+                                        </Text>
+                                    </View>
+                                </View>
+                                <View style={styles.phoneBox}>
+                                    <View style={{width:20}}>
+                                        <Image style={{width:16,height:16,marginRight:5}}
+                                               source={require('../common/images/fax.png')}/>
+                                    </View>
+                                    <View style={styles.dueDateBox}>
+                                        <Text style={[styles.inventoryDate]}>
+                                            {data.faxPhone}
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
                         </View>
@@ -146,6 +176,11 @@ var styles = StyleSheet.create({
     },
     dueDateBox: {
         flex: 1,
+        alignSelf: 'flex-start'
+    },
+    phoneBox: {
+        flex: 1,
+        flexDirection: 'row',
         alignSelf: 'flex-start'
     },
     statusBox: {

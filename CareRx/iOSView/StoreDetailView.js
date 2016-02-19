@@ -30,7 +30,7 @@ var BUTTONS = [
 var CANCEL_INDEX = 3;
 
 import {Actions} from 'react-native-router-flux'
-
+import config from '../common/config';
 import { connect } from 'react-redux';
 
 class StoreDetailView extends React.Component {
@@ -200,7 +200,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,
-        backgroundColor: '#E9F1F9'
+        backgroundColor: config.backgroundColor
     },
     toolBar: {
         height: 45,
@@ -213,7 +213,7 @@ var styles = StyleSheet.create({
         flex: 0.5
     },
     cancelLabel: {
-        color: '#0080FF',
+        color: config.segmentedTintColor,
         fontSize: 18,
         fontWeight: 'bold',
     },
@@ -283,10 +283,11 @@ var styles = StyleSheet.create({
         flex: 1
     },
     fieldLabel: {
-        color: '0080FF'
+        color: "#000000",
+        fontSize: 17
     },
     fieldValueLabel: {
-        flex: 1
+        color: "#9e9e9e"
     }
 });
 

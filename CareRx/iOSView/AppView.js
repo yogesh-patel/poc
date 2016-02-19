@@ -20,6 +20,7 @@ import React, {
 import ProfilesView from './ProfilesView';
 import StoreView from './StoreView';
 import MoreOptions from './MoreOptions';
+import config from '../common/config';
 
 class AppView extends React.Component {
     constructor(props){
@@ -31,8 +32,8 @@ class AppView extends React.Component {
     render() {
         return (
             <TabBarIOS
-                tintColor="#0080FF"
-                barTintColor="#E9F1F9">
+                tintColor={config.tabTintColor}
+                barTintColor={config.tabBarTintColor}>
                 <TabBarIOS.Item
                     title="Profiles"
                     icon={require('../common/images/profile.png')}
@@ -46,7 +47,7 @@ class AppView extends React.Component {
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     title="Stores"
-                    icon={require('../common/images/stores.png')}
+                    icon={require('../common/images/store.png')}
                     selected={this.state.selectedTab === 'stores'}
                     onPress={() => {
                         this.setState({

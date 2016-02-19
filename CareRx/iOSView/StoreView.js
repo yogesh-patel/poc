@@ -22,6 +22,7 @@ import React, {
     TouchableOpacity,
     TouchableHighlight} from 'react-native';
 
+import config from '../common/config';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -51,7 +52,7 @@ class StoreView extends React.Component {
                 longitude: store.longitude,
                 animateDrop: true,
                 title: store.name,
-                tintColor: MapView.PinColors.PURPLE,
+                tintColor: MapView.PinColors.RED,
                 //image: Image.propTypes.source,
                 //view: element,
                 id: store.id+''
@@ -105,7 +106,7 @@ class StoreView extends React.Component {
                             onFocus={this.onSearchFocus.bind(this)}
                             onChangeText={(searchText) => this.setState({searchText})}
                             placeholder="Store, City, State, Zip..."
-                            placeholderTextColor="#CCCCCC"
+                            placeholderTextColor="#777777"
                             autoCorrect={false}
                             clearButtonMode="always"
                             value={this.state.searchText}
@@ -136,7 +137,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 25,
-        backgroundColor:'#E9F1F9'
+        backgroundColor:config.backgroundColor
     },
     toolBar: {
         flexDirection: 'row',

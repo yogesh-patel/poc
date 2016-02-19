@@ -22,6 +22,7 @@ import React, {
     TouchableOpacity,
     TouchableHighlight} from 'react-native';
 
+import config from '../common/config';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActionCreator from '../common/actions/auth';
@@ -48,7 +49,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 25,
-        backgroundColor: '#E9F1F9'
+        backgroundColor: config.backgroundColor
     }
 });
 

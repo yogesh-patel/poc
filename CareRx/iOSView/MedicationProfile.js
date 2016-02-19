@@ -21,6 +21,7 @@ import React, {
     TouchableOpacity,
     TouchableHighlight} from 'react-native';
 
+import config from '../common/config';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActionCreator from '../common/actions/auth';
@@ -145,14 +146,14 @@ class MedicationProfile extends React.Component {
                         <Text style={styles.optionText}>Search</Text>
                     </View>
                 </TouchableOpacity>
-                <View style={styles.horizontalSeparator}/>
+                <View style={[styles.horizontalSeparator,{backgroundColor:config.toolbarSeparator}]}/>
                 <TouchableOpacity style={styles.addOption}>
                     <View style={styles.addOption}>
                         <Image style={{width:20,height:20}} source={require('../common/images/print.png')}/>
                         <Text style={styles.optionText}>Print</Text>
                     </View>
                 </TouchableOpacity>
-                <View style={styles.horizontalSeparator}/>
+                <View style={[styles.horizontalSeparator,{backgroundColor:config.toolbarSeparator}]}/>
                 <TouchableOpacity style={styles.addOption}>
                     <View style={styles.addOption}>
                         <Image style={{width:20,height:20}} source={require('../common/images/addOption.png')}/>
@@ -167,7 +168,7 @@ class MedicationProfile extends React.Component {
         return (
             <View style={styles.container}>
                 {toolBar}
-                <View style={[styles.separator,{marginLeft: 10,marginRight: 10,backgroundColor:'#E9F1F9'}]}/>
+                <View style={[styles.separator,{marginLeft: 10,marginRight: 10,backgroundColor:config.backgroundColor}]}/>
                 <View style={styles.listViewBox}>
                     <ListView
                         dataSource={medicationData}
@@ -193,7 +194,7 @@ var styles = StyleSheet.create({
     toolBar: {
         flexDirection: 'row',
         height: 40,
-        backgroundColor: '#FAFAFA',
+        backgroundColor: config.toolbarBackColor,
         marginLeft: 10,
         marginRight: 10,
         borderRadius: 3
@@ -232,7 +233,7 @@ var styles = StyleSheet.create({
     },
     optionText: {
         fontSize: 12,
-        color: '#585858'
+        color: '#FFFFFF'
     },
     listView: {
         flex: 1

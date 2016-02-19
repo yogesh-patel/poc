@@ -21,6 +21,7 @@ import React, {
     TouchableOpacity,
     TouchableHighlight} from 'react-native';
 
+import config from '../common/config';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActionCreator from '../common/actions/auth';
@@ -122,7 +123,7 @@ class SearchMedicationView extends React.Component {
                     </View>
                 </View>
                 <View
-                    style={[styles.separator,{marginLeft: 10,marginRight: 10,marginTop:10,backgroundColor:'#E9F1F9'}]}/>
+                    style={[styles.separator,{marginLeft: 10,marginRight: 10,marginTop:10,backgroundColor:config.backgroundColor}]}/>
                 <View style={styles.listViewBox}>
                     <ListView
                         dataSource={medicationData}
@@ -144,7 +145,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 0,
-        backgroundColor: '#E9F1F9'
+        backgroundColor: config.backgroundColor
     },
     toolBar: {
         flexDirection: 'row',

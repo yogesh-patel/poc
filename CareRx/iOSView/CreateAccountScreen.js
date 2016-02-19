@@ -17,6 +17,8 @@ var {
     Switch,
     TouchableOpacity
     } = React;
+
+import config from '../common/config';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -427,7 +429,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,
-        backgroundColor: '#E9F1F9'
+        backgroundColor: config.backgroundColor
     },
     toolBar:{
         height:40,
