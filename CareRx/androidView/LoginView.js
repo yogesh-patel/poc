@@ -32,8 +32,7 @@ class LoginView extends Component {
     }
 
     onLogin() {
-        alert("krishna");
-        //this.props.authActions.loginUser();
+        this.props.authActions.loginUser();
     }
 
     onUserNameSubmit() {
