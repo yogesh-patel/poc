@@ -17,6 +17,7 @@
     "redux-logger": "^2.5.0",
     "redux-thunk": "^1.0.3",
     "x2js": "^2.0.0",
+    "react-native-material-kit": "0.3.0",
     "xmldom": "^0.1.22"
   }
 }
