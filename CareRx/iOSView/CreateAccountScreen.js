@@ -21,6 +21,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import {Actions} from 'react-native-router-flux'
+import * as authActionCreator from '../common/actions/auth';
 
 class CreateAccountScreen extends React.Component{
 
@@ -65,8 +66,26 @@ class CreateAccountScreen extends React.Component{
         },0);
     }
 
-    onCitySubmit(){
+    onStateSubmit(){
+        this.props.userAccountActions.showStatesList();
+    }
 
+   /* onStateFocus(e){
+        var interval = setInterval(()=>{
+            clearInterval(interval);
+            this.refs.scrollView.scrollToFocusedInput(e,React.findNodeHandle(this.refs.state),80);
+        },0);
+
+    }
+*/
+    onCitySubmit(){
+        if(this.props.selectedState == null) {
+            //Alert to select state first
+            AlertIOS.alert("State",
+            "Please select state.");
+        }else {
+            this.props.userAccountActions.showCityList();
+        }
     }
 
     onCityFocus(e){
@@ -77,8 +96,70 @@ class CreateAccountScreen extends React.Component{
 
     }
 
+    onZipCodeSubmit(){
+
+    }
+
+    onZipCodeFocus(e){
+        var interval = setInterval(()=>{
+            clearInterval(interval);
+            this.refs.scrollView.scrollToFocusedInput(e,React.findNodeHandle(this.refs.zipcode),80);
+        },0);
+
+    }
+
+    onPhoneNoSubmit(){
+
+    }
+
+    onPhoneNoFocus(e){
+        var interval = setInterval(()=>{
+            clearInterval(interval);
+            this.refs.scrollView.scrollToFocusedInput(e,React.findNodeHandle(this.refs.phoneno),80);
+        },0);
+
+    }
+
+    onBirthDaySubmit(){
+
+    }
+
+    onBirthDayFocus(e){
+        var interval = setInterval(()=>{
+            clearInterval(interval);
+            this.refs.scrollView.scrollToFocusedInput(e,React.findNodeHandle(this.refs.birthday),80);
+        },0);
+
+    }
+
+    onRxNumberSubmit(){
+
+    }
+
+    onRxNumberFocus(e){
+        var interval = setInterval(()=>{
+            clearInterval(interval);
+            this.refs.scrollView.scrollToFocusedInput(e,React.findNodeHandle(this.refs.rxnumber),80);
+        },0);
+
+    }
+
+    onStoreSubmit(){
+
+    }
+
+    onStoreFocus(e){
+        var interval = setInterval(()=>{
+            clearInterval(interval);
+            this.refs.scrollView.scrollToFocusedInput(e,React.findNodeHandle(this.refs.store),80);
+        },0);
+
+    }
 
     render(){
+        var selectedState = this.props.selectedState == null ? "State" : this.props.selectedState.name;
+        var selectedCity = this.props.selectedCity == null ? "City" : this.props.selectedCity.name;
+
         return (
             <View style={styles.container}>
                 <View style={styles.toolBar}>
@@ -232,24 +313,107 @@ class CreateAccountScreen extends React.Component{
                                 autoCapitalize="none"
                                 onFocus={this.onAddressLine2Focus.bind(this)}
                                 />
+                              <View style={[styles.separator,{marginLeft:15}]} />
+                              <TouchableOpacity style={{height: 40,padding:5,backgroundColor: '#FFFFFF'}}
+                                                onPress={this.onStateSubmit.bind(this)}>
+                                  <Text style={{height: 40,padding:5,paddingLeft:10,color: '#CCCCCC', fontSize: 17}}>{ selectedState }</Text>
+                              </TouchableOpacity>
+
                             <View style={[styles.separator,{marginLeft:15}]} />
-                            <TextInput
-                                style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
-                                onChangeText={(city) => this.setState({city})}
-                                ref="city"
-                                placeholder="City"
-                                placeholderTextColor="#CCCCCC"
-                                autoCorrect={false}
-                                clearButtonMode="always"
-                                value={this.state.city}
-                                returnKeyType="default"
-                                onEndEditing={this.onCitySubmit.bind(this)}
-                                selectTextOnFocus
-                                enablesReturnKeyAutomatically
-                                keyboardAppearance="light"
-                                autoCapitalize="none"
-                                onFocus={this.onCityFocus.bind(this)}
-                                />
+                            <TouchableOpacity style={{height: 40,padding:5,backgroundColor: '#FFFFFF'}}
+                                              onPress={this.onCitySubmit.bind(this)}>
+                                <Text style={{height: 40,padding:5,paddingLeft:10,color: '#CCCCCC', fontSize: 17}}>{ selectedCity }</Text>
+                            </TouchableOpacity>
+                                <View style={[styles.separator,{marginLeft:15}]} />
+                              <TextInput
+                                  style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
+                                  onChangeText={(zipcode) => this.setState({zipcode})}
+                                  ref="zipcode"
+                                  placeholder="Zip Code"
+                                  placeholderTextColor="#CCCCCC"
+                                  autoCorrect={false}
+                                  clearButtonMode="always"
+                                  value={this.state.zipcode}
+                                  returnKeyType="default"
+                                  onEndEditing={this.onZipCodeSubmit.bind(this)}
+                                  selectTextOnFocus
+                                  enablesReturnKeyAutomatically
+                                  keyboardAppearance="light"
+                                  autoCapitalize="none"
+                                  onFocus={this.onZipCodeFocus.bind(this)}
+                                  />
+                                  <View style={[styles.separator,{marginLeft:15}]} />
+                              <TextInput
+                                  style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
+                                  onChangeText={(phoneno) => this.setState({phoneno})}
+                                  ref="phoneno"
+                                  placeholder="Phone Number"
+                                  placeholderTextColor="#CCCCCC"
+                                  autoCorrect={false}
+                                  clearButtonMode="always"
+                                  value={this.state.phoneno}
+                                  returnKeyType="default"
+                                  onEndEditing={this.onPhoneNoSubmit.bind(this)}
+                                  selectTextOnFocus
+                                  enablesReturnKeyAutomatically
+                                  keyboardAppearance="light"
+                                  autoCapitalize="none"
+                                  onFocus={this.onPhoneNoFocus.bind(this)}
+                                  />
+                                  <View style={[styles.separator,{marginLeft:15}]} />
+                              <TextInput
+                                  style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
+                                  onChangeText={(birthday) => this.setState({birthday})}
+                                  ref="birthday"
+                                  placeholder="Birthday"
+                                  placeholderTextColor="#CCCCCC"
+                                  autoCorrect={false}
+                                  clearButtonMode="always"
+                                  value={this.state.birthday}
+                                  returnKeyType="default"
+                                  onEndEditing={this.onBirthDaySubmit.bind(this)}
+                                  selectTextOnFocus
+                                  enablesReturnKeyAutomatically
+                                  keyboardAppearance="light"
+                                  autoCapitalize="none"
+                                  onFocus={this.onBirthDayFocus.bind(this)}
+                                  />
+                                  <View style={[styles.separator,{marginLeft:15}]} />
+                              <TextInput
+                                  style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
+                                  onChangeText={(rxnumber) => this.setState({rxnumber})}
+                                  ref="rxnumber"
+                                  placeholder="Rx Number"
+                                  placeholderTextColor="#CCCCCC"
+                                  autoCorrect={false}
+                                  clearButtonMode="always"
+                                  value={this.state.rxnumber}
+                                  returnKeyType="default"
+                                  onEndEditing={this.onRxNumberSubmit.bind(this)}
+                                  selectTextOnFocus
+                                  enablesReturnKeyAutomatically
+                                  keyboardAppearance="light"
+                                  autoCapitalize="none"
+                                  onFocus={this.onRxNumberFocus.bind(this)}
+                                  />
+                                  <View style={[styles.separator,{marginLeft:15}]} />
+                              <TextInput
+                                  style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
+                                  onChangeText={(store) => this.setState({store})}
+                                  ref="store"
+                                  placeholder="Select Store"
+                                  placeholderTextColor="#CCCCCC"
+                                  autoCorrect={false}
+                                  clearButtonMode="always"
+                                  value={this.state.store}
+                                  returnKeyType="default"
+                                  onEndEditing={this.onStoreSubmit.bind(this)}
+                                  selectTextOnFocus
+                                  enablesReturnKeyAutomatically
+                                  keyboardAppearance="light"
+                                  autoCapitalize="none"
+                                  onFocus={this.onStoreFocus.bind(this)}
+                                  />
                         </View>
                         <View style={[styles.separator]} />
                     </View>
@@ -320,9 +484,13 @@ var styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    selectedState : state.userProfile.selectedState,
+    selectedCity: state.userProfile.selectedCity
+});
 
 const mapDispatchToProps = (dispatch) => ({
+    'userAccountActions': bindActionCreators(authActionCreator, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateAccountScreen);
