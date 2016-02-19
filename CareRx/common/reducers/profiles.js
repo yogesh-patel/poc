@@ -2,7 +2,7 @@
  * Created by synerzip on 17/02/16.
  */
 import {createReducer} from '../util';
-import {PRESCRIPTION_DATA_RECEIVED,MEDICATION_SELECTED} from '../constants';
+import {PRESCRIPTION_DATA_RECEIVED,MEDICATION_SELECTED, ALLERGY_SELECTED} from '../constants';
 
 const initialState = {
     "medicationDataList": [
@@ -200,8 +200,30 @@ const initialState = {
 
 
     ],
-    "allergies": {},
-    'selectedMedication':null
+    "allergies": [
+        {
+            accode: 513,
+            DeleteAllergy: 'N',
+            Description: "Eggs or Egg-derived Products"
+        },
+        {
+            accode: 1,
+            DeleteAllergy: 'N',
+            Description: "Morphine and Related"
+        },
+        {
+            accode: 2,
+            DeleteAllergy: 'N',
+            Description: "Many, including: swollen eyes, lips, or tongue, difficulty swallowing, shortness of breath, rapid heart rate."
+        },
+        {
+            accode: 3,
+            DeleteAllergy: 'N',
+            Description: "Maculopapular or morbilliform skin eruption, and less commonly urticaria, eosinophilia, serum-sickness–like reactions, and anaphylaxis."
+        },
+    ],
+    'selectedMedication':null,
+    'selectedAllergy':null
 };
 
 export default createReducer(initialState, {
@@ -214,6 +236,11 @@ export default createReducer(initialState, {
     'MEDICATION_SELECTED': (state, payload) => {
         return Object.assign({}, state, {
             'selectedMedication':payload
+        });
+    },
+    'ALLERGY_SELECTED': (state, payload) => {
+        return Object.assign({}, state, {
+            'selectedAllergy':payload
         });
     }
 });

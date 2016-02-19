@@ -22,6 +22,7 @@ import React, {
     TouchableWithoutFeedback} from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import MedicationProfile from './MedicationProfile';
+import AllergiesView from './Allergies';
 import config from '../common/config';
 var Dimensions = require('Dimensions')
 var screenWidth = Dimensions.get('window').width;
@@ -139,8 +140,10 @@ class ProfilesView extends React.Component {
         var selectedOption = null;
         if (this.state.selectedIndex == 0) {
             selectedOption = <MedicationProfile />;
+        } else if (this.state.selectedIndex == 1){
+            selectedOption = <AllergiesView />;
         } else {
-            selectedOption = <View />;
+            selectedOption = <View/>;
         }
 
         var maskStyle = styles.maskComp;
