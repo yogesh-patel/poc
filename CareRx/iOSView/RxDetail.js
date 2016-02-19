@@ -21,6 +21,7 @@ import React, {
     TouchableOpacity,
     TouchableHighlight} from 'react-native';
 
+import config from '../common/config';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
@@ -267,7 +268,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 40,
-        backgroundColor: '#E9F1F9'
+        backgroundColor: config.backgroundColor
     },
     toolBar: {
         height: 45,
@@ -280,7 +281,7 @@ var styles = StyleSheet.create({
         flex: 0.5
     },
     cancelLabel: {
-        color: '#0080FF',
+        color: config.tabTintColor,
         fontSize: 18,
         fontWeight: 'bold',
     },
@@ -346,9 +347,12 @@ var styles = StyleSheet.create({
         flex: 1
     },
     fieldLabel: {
-        color: '0080FF'
+        color: "#000000",
+        fontSize: 17
     },
-    fieldValueLabel: {}
+    fieldValueLabel: {
+        color: "#9e9e9e"
+    }
 });
 
 const mapStateToProps = (state) => ({

@@ -17,6 +17,8 @@ var {
     Switch,
     TouchableOpacity
     } = React;
+
+import config from '../common/config';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as authActionCreator from '../common/actions/auth';
@@ -151,7 +153,7 @@ var styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 60,
-        backgroundColor: '#E9F1F9'
+        backgroundColor: config.backgroundColor
     },
     logoBox: {
         flexDirection: 'row',
@@ -188,11 +190,11 @@ var styles = StyleSheet.create({
     },
     loginButtonBox: {
         marginTop: 20,
-        backgroundColor: '#60DA8E',
-        padding: 10,
+        backgroundColor: config.loginButtonBackColor,
         justifyContent: 'center',
     },
     loginButtonTouchBox: {
+        padding: 15,
         flexDirection: 'row',
         justifyContent: 'center',
         flex: 1
@@ -200,7 +202,7 @@ var styles = StyleSheet.create({
     createNewAccountBox: {
         marginTop: 20,
         backgroundColor: '#2090CC',
-        padding: 10,
+        padding: 15,
         justifyContent: 'center',
     },
     createNewAccountTouchBox: {
@@ -210,7 +212,8 @@ var styles = StyleSheet.create({
     },
     loginBox: {
         flex: 1,
-        margin: 40
+        margin: 40,
+        marginTop:25
     },
     rememberMeBox: {
         marginTop: 10,
