@@ -6,6 +6,8 @@ import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flu
 import AppView from './AppView';
 import CreateAccountScreen from './CreateAccountScreen';
 import RxDetail from './RxDetail';
+import StatesView from './StatesListView';
+import CityView from './CityListView';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import LoginView from './LoginView';
@@ -40,6 +42,12 @@ class RouterConfigComponent extends React.Component{
                        sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
                        component={requireMaskComponent(StoreDetailView)}
                        hideNavBar={true} type="push" />
+                <Route name="showCityList" sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={requireMaskComponent(CityView)}
+                       hideNavBar={true} type="push"/>
+                <Route name="showStatesList" sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={requireMaskComponent(StatesView)}
+                       hideNavBar={true} type="push"/>
             </Router>
         );
     }

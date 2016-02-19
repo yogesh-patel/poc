@@ -34,11 +34,34 @@ export function showCreateAccount(){
     }
 }
 
-export function setState(newState){
+export function showStatesList(){
+    return function (dispatch){
+        //dispatch({type:'CREATE_ACCOUNT_USER_REQUEST'});
+        Actions.showStatesList();
+    }
+}
+
+export function showCityList(){
+    return function (dispatch){
+        //dispatch({type:'CREATE_ACCOUNT_USER_REQUEST'});
+        Actions.showCityList();
+    }
+}
+
+export function onSelectedState(newState){
     return (
     {
-        type:'CREATE_ACCOUNT_USER_REQUEST',
+        type:'STATE_SELECTED',
         payload:newState
+    }
+    )
+}
+
+export function onSelectedCity(newCity){
+    return (
+    {
+        type:'CITY_SELECTED',
+        payload:newCity
     }
     )
 }

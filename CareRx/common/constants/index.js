@@ -9,5 +9,7 @@ export default createConstants(
     'LOGOUT_USER',
     'PRESCRIPTION_DATA_RECEIVED',
     'MEDICATION_SELECTED',
-    'STORE_RECEIVED'
+    'STORE_RECEIVED',
+    'STATE_SELECTED',
+    'CITY_SELECTED'
 );
