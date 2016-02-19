@@ -20,6 +20,7 @@ import React, {
 import ProfilesView from './ProfilesView';
 import StoreView from './StoreView';
 import MoreOptions from './MoreOptions';
+import HistoryView from './HistoryView';
 import config from '../common/config';
 
 class AppView extends React.Component {
@@ -65,7 +66,7 @@ class AppView extends React.Component {
                           selectedTab: 'transactions'
                         });
                       }}>
-                    <View />
+                    <HistoryView />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     icon={require('../common/images/more.png')}

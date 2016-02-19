@@ -118,6 +118,7 @@ class MedicationProfile extends React.Component {
                         <TextInput
                             style={{height: 25,padding:5,backgroundColor: '#FFFFFF'}}
                             onChangeText={(searchText) => this.setState({searchText})}
+                            autoFocus
                             placeholder="Drug, Doctor, RxNumber..."
                             placeholderTextColor="#CCCCCC"
                             autoCorrect={false}
@@ -133,7 +134,8 @@ class MedicationProfile extends React.Component {
                     </View>
                 </View>
                 <View style={styles.cancelButtonBox}>
-                    <TouchableOpacity onPress={this.onSearchCancel.bind(this)}>
+                    <TouchableOpacity style={[styles.cancelButtonBox,{flex:1,paddingLeft: 5}]}
+                                      onPress={this.onSearchCancel.bind(this)}>
                         <Text style={styles.cancelButton}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
@@ -295,13 +297,13 @@ var styles = StyleSheet.create({
         alignItems: 'center'
     },
     cancelButtonBox: {
+        height:30,
         flex: 0.2,
         justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 5
+        alignItems: 'center'
     },
     cancelButton: {
-        color: '#0080FF',
+        color: config.segmentedTintColor,
         fontWeight:'bold'
     }
 });

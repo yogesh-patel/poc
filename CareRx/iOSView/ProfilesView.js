@@ -18,10 +18,14 @@ import React, {
     TabBarIOS,
     AlertIOS,
     Animated,
-    TouchableOpacity} from 'react-native';
+    TouchableOpacity,
+    TouchableWithoutFeedback} from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import MedicationProfile from './MedicationProfile';
 import config from '../common/config';
+var Dimensions = require('Dimensions')
+var screenWidth = Dimensions.get('window').width;
+var screenHeight = Dimensions.get('window').height;
 
 var BUTTONS = [
     'Take Photo',
@@ -44,8 +48,9 @@ class ProfilesView extends React.Component {
         super(props);
         this.state = {
             selectedIndex: 0,
-            fadeAnim: new Animated.Value(0),
-            originalNextOpacity: new Animated.Value(1)
+            originalNextOpacity: new Animated.Value(1),
+            overlayOpacity: new Animated.Value(0),
+            profileBoxOpacity: new Animated.Value(0)
         };
     }
 
@@ -94,24 +99,38 @@ class ProfilesView extends React.Component {
             this.state.originalNextOpacity,
             {toValue: 1}
         ).start();
-        Animated.timing(          // Uses easing functions
-            this.state.fadeAnim,    // The value to drive
-            {toValue: 0}         // Configuration
-        ).start();                // Don't forget start!
+
+        Animated.timing(
+            this.state.overlayOpacity,
+            {toValue: 0}
+        ).start();
+
+        Animated.timing(
+            this.state.profileBoxOpacity,
+            {toValue: 0}
+        ).start();
+
     }
 
     showProfileSelectionOverlay() {
 
-        //this.setState({showOverlay: true});
+        this.setState({showOverlay: true});
         //
-        //Animated.timing(
-        //    this.state.originalNextOpacity,
-        //    {toValue: 0}
-        //).start();
-        //Animated.timing(          // Uses easing functions
-        //    this.state.fadeAnim,    // The value to drive
-        //    {toValue: 0.8}         // Configuration
-        //).start();                // Don't forget start!
+        Animated.timing(
+            this.state.originalNextOpacity,
+            {toValue: 0}
+        ).start();
+
+        Animated.timing(
+            this.state.overlayOpacity,
+            {toValue: 0.5}
+        ).start();
+
+        Animated.timing(
+            this.state.profileBoxOpacity,
+            {toValue: 0.7}
+        ).start();
+
 
 
     }
@@ -124,14 +143,13 @@ class ProfilesView extends React.Component {
             selectedOption = <View />;
         }
 
-        //var overLay = <View />;
-        //if (this.state.showOverlay) {
-        //    overLay = <Animated.View style={[styles.nextProfileOverlay,{opacity: this.state.fadeAnim}]}>
-        //        <TouchableOpacity style={[styles.profileSelectBox]}
-        //                          onPress={this.hideProfileSelectionOverlay.bind(this)}>
-        //        </TouchableOpacity>
-        //    </Animated.View>;
-        //}
+        var maskStyle = styles.maskComp;
+        var profileBoxStyle = styles.profileBoxStyle;
+
+        if (this.state.showOverlay) {
+            maskStyle = [styles.maskComp,{bottom:0,right:0}];
+            profileBoxStyle=[styles.profileBoxStyle,{top:80,right:0,width:100}];
+        }
         return (
             <View style={styles.container}>
                 <Image style={{width:120,height:38,marginLeft:5}} source={require('../common/images/logoNew.png')}/>
@@ -215,6 +233,17 @@ class ProfilesView extends React.Component {
                     </View>
                 </View>
 
+                <Animated.View style={[maskStyle,{opacity:this.state.overlayOpacity}]}>
+                    <TouchableWithoutFeedback style={{flex:1}}
+                                              onPress={this.hideProfileSelectionOverlay.bind(this)}>
+                        <View style={{flex:1}} />
+                    </TouchableWithoutFeedback>
+                </Animated.View>
+
+                <Animated.View style={[profileBoxStyle,{opacity:this.state.profileBoxOpacity}]}>
+                    <View style={styles.subProfileBox}>
+                    </View>
+                </Animated.View>
             </View>
         );
     }
@@ -300,7 +329,7 @@ var styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingLeft: 10
+
     },
     nextProfileTouch: {
         borderTopLeftRadius: 60,
@@ -310,7 +339,8 @@ var styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1
+        flex: 1,
+        paddingLeft: 10
     },
     nextProfileOverlay: {
         backgroundColor: config.nextProfileBackColor,
@@ -354,6 +384,35 @@ var styles = StyleSheet.create({
     moreProfileLabel: {
         fontSize: 24,
         color: '#dddddd'
+    },
+
+    profileBoxStyle:{
+        position:'absolute',
+        backgroundColor:config.segmentedTintColor,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 0,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 0,
+        opacity:0,
+        right:0-screenWidth,
+        top:0,
+        height:200
+    },
+    maskComp:{
+        position:'absolute',
+        backgroundColor:'#000000',
+        opacity:0,
+        left:0-screenWidth,
+        top:0,
+    },
+    subProfileBox:{
+        flex:1,
+        maxHeight:80,
+        borderWidth:1,
+        borderColor:'#FFFFFF',
+        borderRadius:5,
+        margin:10,
+        alignItems:'center'
     }
 });
 
