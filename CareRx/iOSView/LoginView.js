@@ -33,7 +33,7 @@ class LoginView extends React.Component {
     }
 
     onLogin() {
-        this.props.authActions.loginUser();
+        this.props.authActions.loginUser(this.state.username,this.state.password);
     }
 
     onUserNameSubmit() {
@@ -53,7 +53,14 @@ class LoginView extends React.Component {
         Actions.createAccount();
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.loginFail){
+            AlertIOS.alert(nextProps.loginFailMessage);
+            this.props.authActions.removeLoginFail();
+        }
+    }
     render() {
+
         var loginButton = <View style={[styles.loginButtonBox,{backgroundColor:'#CCCCCC'}]}>
             <View style={styles.loginButtonTouchBox}>
                 <Text style={[styles.loginButtonLabel,{color:'#DDDDDD'}]}>Login</Text>
@@ -239,7 +246,10 @@ var styles = StyleSheet.create({
     }
 });
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    "loginFail":state.auth.loginFail,
+    "loginFailMessage":state.auth.loginFailMessage
+});
 
 const mapDispatchToProps = (dispatch) => ({
     'authActions': bindActionCreators(authActionCreator, dispatch),

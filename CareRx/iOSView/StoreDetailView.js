@@ -97,7 +97,7 @@ class StoreDetailView extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.titleBox}>
-                        <Text style={styles.title}>{selectedStore.name}</Text>
+                        <Text style={styles.title}>{selectedStore.displayName}</Text>
                     </View>
                     <View style={styles.doneBox}>
                         <TouchableOpacity style={[{flex: 1}]} onPress={this.onMoreOptions.bind(this)}>
@@ -117,7 +117,7 @@ class StoreDetailView extends React.Component {
                             </View>
                             <View style={styles.fieldValueBox}>
                                 <Text style={styles.fieldValueLabel}>
-                                    {selectedStore.name}
+                                    {selectedStore.displayName}
                                 </Text>
                             </View>
                         </View>
@@ -170,7 +170,7 @@ class StoreDetailView extends React.Component {
                             </View>
                             <View style={styles.fieldValueBox}>
                                 <Text style={styles.fieldValueLabel}>
-                                    {selectedStore.timezoe}
+                                    {selectedStore.timeZone}
                                 </Text>
                             </View>
                         </View>

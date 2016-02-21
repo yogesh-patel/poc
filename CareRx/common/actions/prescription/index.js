@@ -4,13 +4,11 @@
 import { checkHttpStatus, parseJSON } from '../../util';
 import {MEDICATION_SELECTED, ALLEGY_SELECTED, STORE_SELECTED, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../../constants';
 import config from '../../config';
+import {post} from '../common';
 import {Actions} from 'react-native-router-flux'
 
 export function fetchPrescriptions() {
     return function (dispatch) {
-        var CHAIN_ID = 716;
-        dispatch({type:'FETCHING_PRESCRIPTION'});
-
 
         var payload = {
             '1':{
@@ -282,11 +280,22 @@ export function fetchPrescriptions() {
                 ]
             }
         };
-        var interval = setInterval(()=>{
-            clearInterval(interval);
+
+
+        //var CHAIN_ID = 716;
+        dispatch({type:'FETCHING_PRESCRIPTION'});
+
+        var endpoint = "/PatientService";
+
+        var requestParams = "CHAIN_ID=" + config.CHAIN_ID + "&FLOW_POS=317&WebLogicSession=" + config.loginToken;
+        console.log("Login Token:"+requestParams);
+        post(endpoint,requestParams).
+            then(response=>{
+            console.log(response);
             dispatch({type:'PRESCRIPTION_DATA_RECEIVED',payload:payload})
             Actions.dashboard();
-        },500);
+        });
+
 
     }
 }

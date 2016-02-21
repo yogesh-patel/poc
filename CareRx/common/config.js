@@ -2,7 +2,8 @@
  * Created by synerzip on 08/12/15.
  */
 let config ={
-    BASE_URL: "https://devapi.chartspan.com:8443/ccm",
+    BASE_URL: "http://10.23.6.1:7101/nhin/mobileservices/",
+    CHAIN_ID:8000,
     /* Theme Configuration*/
     backgroundColor: '#F1F1F2',
     segmentedTintColor:'#FD3B32',
