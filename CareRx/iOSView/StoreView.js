@@ -48,14 +48,14 @@ class StoreView extends React.Component {
 
         var annotations = _.map(stores,(store)=>{
             return {
-                latitude: store.latitude,
-                longitude: store.longitude,
+                latitude: parseFloat(store.lat+''),
+                longitude: parseFloat(store.lng+''),
                 animateDrop: true,
-                title: store.name,
+                title: store.displayName,
                 tintColor: MapView.PinColors.RED,
                 //image: Image.propTypes.source,
                 //view: element,
-                id: store.id+''
+                id: store.ncpdpId+''
             }
         });
         return annotations;
@@ -69,8 +69,8 @@ class StoreView extends React.Component {
         };
         if(stores && stores.length > 0){
             region = {
-                latitude: stores[0].latitude,
-                longitude: stores[0].longitude
+                latitude: parseFloat(stores[0].lat+''),
+                longitude: parseFloat(stores[0].lng+'')
             };
         }
         var centerView,navOption,navOptionFlex = null;

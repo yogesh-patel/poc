@@ -12,18 +12,34 @@ const initialState = {
     "roles": null,
     "isAuthenticating": false,
     "isAuthenticated": false,
+    "loginFail":false,
+    "loginFailMessage":""
 };
 
 export default createReducer(initialState, {
     'LOGIN_USER_REQUEST': state => {
         return Object.assign({}, state, {
-            'isAuthenticating': true
+            'isAuthenticating': true,
+            "loginFail":false,
+            "loginFailMessage":""
         });
     },
     'LOGIN_USER_SUCCESS': state => {
         return Object.assign({}, state, {
             'isAuthenticating': false,
             'isAuthenticated':true
+        });
+    },
+    'LOGIN_USER_FAILED': (state, payload) => {
+        return Object.assign({}, state, {
+            "loginFail":true,
+            "loginFailMessage":payload.message
+        });
+    },
+    'REMOVE_LOGIN_FAILED':(state, payload) => {
+        return Object.assign({}, state, {
+            "loginFail":false,
+            "loginFailMessage":''
         });
     },
 });

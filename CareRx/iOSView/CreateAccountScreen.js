@@ -37,6 +37,9 @@ class CreateAccountScreen extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.props.userAccountActions.getStores();
+    }
     onCancel() {
         Actions.pop();
     }
@@ -100,7 +103,7 @@ class CreateAccountScreen extends React.Component {
         this.props.userAccountActions.createAccount({
             accountName: this.state.username,
             password: this.state.password,
-            confirmPassword: this.state.confirmPassword,
+            passwordConfirmation: this.state.confirmPassword,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             birthDate: this.state.birthDate,
@@ -108,12 +111,12 @@ class CreateAccountScreen extends React.Component {
             confirmEmail: this.state.confirmEmail,
             phoneNumber: this.state.phoneno,
             rxNumber: this.state.rxNumber,
-            selectedStoreId: this.props.selectedStore.id,
+            selectedStoreId: this.props.selectedStore.ncpdpId,
             address1: this.state.address1,
             address2: this.state.address2,
             state: this.props.selectedState ? this.props.selectedState.name : null,
             city: this.props.selectedCity,
-            zipcode: this.state.zipcode
+            zipCode: this.state.zipcode
         });
     }
 
@@ -322,7 +325,7 @@ class CreateAccountScreen extends React.Component {
         var selectedCity = this.props.selectedCity == null ? "Select City" : this.props.selectedCity;
         var cityValueColor = this.props.selectedCity == null ? "#CCCCCC" : '#000000';
 
-        var selectedStore = this.props.selectedStore == null ? "Select Store" : this.props.selectedStore.name;
+        var selectedStore = this.props.selectedStore == null ? "Select Store" : this.props.selectedStore.displayName;
         var storeValueColor = this.props.selectedStore == null ? "#CCCCCC" : '#000000';
 
         if (this.props.duplicateAccount) {

@@ -49,13 +49,13 @@ class SelectStoreView extends React.Component{
         }
         //console.log("Row ");
         return (
-            <TouchableOpacity key={rowData.id+''}
+            <TouchableOpacity key={rowData.ncpdpId+''}
                               onPress={() => this.rowPressed(rowData)}
                               underlayColor='#dddddd'>
                 <View>
                     <View style={styles.rowContainer}>
                         <View style={styles.textContainer}>
-                            <Text style={styles.stateLabel}>{ rowData.name }</Text>
+                            <Text style={styles.stateLabel}>{ rowData.displayName }</Text>
                         </View>
                         <View style={styles.selectedIcon}>
                             {isSelected}

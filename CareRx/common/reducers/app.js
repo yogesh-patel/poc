@@ -16,10 +16,40 @@ export default createReducer(initialState, {
             'loadingMessage':'Please Wait.'
         });
     },
+    'FETCH_STORE_REQUEST': state => {
+        return Object.assign({}, state, {
+            'isFetching': true,
+            'loadingMessage':'Loading Stores...'
+        });
+    },
+    'CREATE_ACCOUNT_USER_REQUEST':state => {
+        return Object.assign({}, state, {
+            'isFetching': true,
+            'loadingMessage':'Registering Account...'
+        });
+    },
+    'STORE_RECEIVED':state => {
+        return Object.assign({}, state, {
+            'isFetching': false,
+            'loadingMessage':''
+        });
+    },
+    'LOGIN_USER_FAILED': state => {
+        return Object.assign({}, state, {
+            'isFetching': false,
+            'loadingMessage':''
+        });
+    },
     'FETCHING_PRESCRIPTION': state => {
         return Object.assign({}, state, {
             'isFetching': true,
             'loadingMessage':'Getting Patient Information'
+        });
+    },
+    'DUPLICATE_ACCOUNT_NAME': state => {
+        return Object.assign({}, state, {
+            'isFetching': false,
+            'loadingMessage':''
         });
     },
     'PRESCRIPTION_DATA_RECEIVED': state => {

@@ -15,7 +15,7 @@ const initialState = {
             zip: '76118',
             phone: '8173670081',
             faxPhone: '8179352032',
-            latitude: 32.759052,
+            lat: 32.759052,
             longitude: -96.47669,
             timezoe: 'America/Chicago',
             hours:{

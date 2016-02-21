@@ -46,14 +46,14 @@ class StoreListView extends React.Component {
         var address2 = data.city + ', ' + data.state + ' ' + data.zip;
         return (
             <TouchableOpacity style={{flex:1}}
-                              key={data.id+''}
+                              key={data.ncpdpId+''}
                               onPress={this.onSelected.bind(this,data)}>
                 <View style={[{flex:1}]}>
                     <View style={[styles.rowContainer]}>
                         <View style={styles.dataContainer}>
                             <View style={styles.orderBox}>
                                 <View style={styles.dueDateBox}>
-                                    <Text style={[styles.orderLabel]}>{data.name}</Text>
+                                    <Text style={[styles.orderLabel]}>{data.displayName}</Text>
                                 </View>
                             </View>
                             <View style={[styles.extraInfoBox,{marginTop:5}]}>
