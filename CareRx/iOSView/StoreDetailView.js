@@ -66,8 +66,8 @@ class StoreDetailView extends React.Component {
             var dayHour = hours[day];
             return (
                 <View style={[styles.fieldBox,{height:80}]} key={day}>
-                    <View style={styles.separator}/>
-                    <View style={[{height:20}]}>
+                    <View style={[styles.separator]}/>
+                    <View style={[{height:20,marginTop:10}]}>
                         <Text style={styles.fieldLabel}>
                             {day + ' [' + dayHour.date + ']'}
                         </Text>

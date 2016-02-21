@@ -89,7 +89,8 @@ const initialState = {
             longitude: -97.47669,
             timezoe: 'America/Chicago'
         }
-    ]
+    ],
+    'selectedStore':null
 };
 
 export default createReducer(initialState, {

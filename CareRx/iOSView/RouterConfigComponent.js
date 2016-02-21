@@ -14,6 +14,10 @@ import { connect } from 'react-redux';
 import LoginView from './LoginView';
 import {requireMaskComponent} from './MaskWrapComponent';
 import StoreDetailView from './StoreDetailView';
+import CameraView from './CameraView';
+import PDCConfigView from './PDCConfigView';
+import SelectPDCDuration from './SelectPDCDuration';
+import SelectStoreView from './SelectStoreView';
 
 class RouterConfigComponent extends React.Component{
     render(){
@@ -53,6 +57,26 @@ class RouterConfigComponent extends React.Component{
                 <Route name="showStatesList" sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
                        component={requireMaskComponent(StatesView)}
                        hideNavBar={true} type="push"/>
+                <Route name="openCamera" sceneConfig={ Navigator.SceneConfigs.FloatFromBottom }
+                       component={CameraView}
+                       hideNavBar={true} type="push"/>
+
+                <Route name="pdcConfig" sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={PDCConfigView}
+                       hideNavBar={true} type="push"/>
+
+                <Route name="selectPDCDuration" sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={SelectPDCDuration}
+                       hideNavBar={true} type="push"/>
+
+                <Route name="storeSelection" sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={SelectStoreView}
+                       hideNavBar={true} type="push"/>
+
+
+
+
+
             </Router>
         );
     }

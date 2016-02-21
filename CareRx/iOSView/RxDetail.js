@@ -62,6 +62,85 @@ class RxDetail extends React.Component {
 
     render() {
         var {selectedMedication} = this.props;
+        var txFields = _.map(selectedMedication.txFields, (txField)=> {
+            return (
+                <View key={txField.lastFilled}>
+                    <View style={styles.txFieldLabelBox}>
+
+                    </View>
+                    <View style={{paddingLeft:20}}>
+                        <View style={styles.fieldBox}>
+                            <View style={styles.fieldNameBox}>
+                                <Text style={styles.fieldLabel}>
+                                    Filled Date
+                                </Text>
+                            </View>
+                            <View style={styles.fieldValueBox}>
+                                <Text style={styles.fieldValueLabel}>
+                                    {txField.lastFilled}
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.separator}/>
+
+                        <View style={styles.fieldBox}>
+                            <View style={styles.fieldNameBox}>
+                                <Text style={styles.fieldLabel}>
+                                    Cost
+                                </Text>
+                            </View>
+                            <View style={styles.fieldValueBox}>
+                                <Text style={styles.fieldValueLabel}>
+                                    {txField.cost}
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.separator}/>
+
+                        <View style={styles.fieldBox}>
+                            <View style={styles.fieldNameBox}>
+                                <Text style={styles.fieldLabel}>
+                                    Discount
+                                </Text>
+                            </View>
+                            <View style={styles.fieldValueBox}>
+                                <Text style={styles.fieldValueLabel}>
+                                    {txField.discount}
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.separator}/>
+
+                        <View style={styles.fieldBox}>
+                            <View style={styles.fieldNameBox}>
+                                <Text style={styles.fieldLabel}>
+                                    Fill Qty
+                                </Text>
+                            </View>
+                            <View style={styles.fieldValueBox}>
+                                <Text style={styles.fieldValueLabel}>
+                                    {txField.fillQty}
+                                </Text>
+                            </View>
+                        </View>
+                        <View style={styles.separator}/>
+
+                        <View style={styles.fieldBox}>
+                            <View style={styles.fieldNameBox}>
+                                <Text style={styles.fieldLabel}>
+                                    Fill Qty
+                                </Text>
+                            </View>
+                            <View style={styles.fieldValueBox}>
+                                <Text style={styles.fieldValueLabel}>
+                                    {txField.dispenseDrugName}
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            );
+        })
         return (
             <View style={styles.container}>
                 <View style={styles.toolBar}>
@@ -128,12 +207,12 @@ class RxDetail extends React.Component {
                         <View style={styles.fieldBox}>
                             <View style={styles.fieldNameBox}>
                                 <Text style={styles.fieldLabel}>
-                                    Expiration Date
+                                    Written Date
                                 </Text>
                             </View>
                             <View style={styles.fieldValueBox}>
                                 <Text style={styles.fieldValueLabel}>
-                                    {selectedMedication.expirationDate}
+                                    {selectedMedication.writtenDate}
                                 </Text>
                             </View>
                         </View>
@@ -141,12 +220,12 @@ class RxDetail extends React.Component {
                         <View style={styles.fieldBox}>
                             <View style={styles.fieldNameBox}>
                                 <Text style={styles.fieldLabel}>
-                                    Written Date
+                                    Expiration Date
                                 </Text>
                             </View>
                             <View style={styles.fieldValueBox}>
                                 <Text style={styles.fieldValueLabel}>
-                                    {selectedMedication.writtenDate}
+                                    {selectedMedication.expirationDate}
                                 </Text>
                             </View>
                         </View>
@@ -193,7 +272,7 @@ class RxDetail extends React.Component {
                         <View style={styles.fieldBox}>
                             <View style={styles.fieldNameBox}>
                                 <Text style={styles.fieldLabel}>
-                                    Refills Remaining
+                                    Refill Remaining
                                 </Text>
                             </View>
                             <View style={styles.fieldValueBox}>
@@ -216,15 +295,16 @@ class RxDetail extends React.Component {
                             </View>
                         </View>
                         <View style={styles.separator}/>
+
                         <View style={styles.fieldBox}>
                             <View style={styles.fieldNameBox}>
                                 <Text style={styles.fieldLabel}>
-                                    Last Filled Date
+                                    Doctor Phone
                                 </Text>
                             </View>
                             <View style={styles.fieldValueBox}>
                                 <Text style={styles.fieldValueLabel}>
-                                    {selectedMedication.lastFilled}
+                                    {selectedMedication.doctorPhone}
                                 </Text>
                             </View>
                         </View>
@@ -242,19 +322,15 @@ class RxDetail extends React.Component {
                             </View>
                         </View>
                         <View style={styles.separator}/>
-                        <View style={styles.fieldBox}>
-                            <View style={styles.fieldNameBox}>
-                                <Text style={styles.fieldLabel}>
-                                    Cost
-                                </Text>
+
+                        <View style={styles.txFields}>
+                            <View style={styles.txFieldStartBox}>
+                                <Text style={styles.txFieldLabel}>Tx Fields</Text>
                             </View>
-                            <View style={styles.fieldValueBox}>
-                                <Text style={styles.fieldValueLabel}>
-                                    {selectedMedication.cost}
-                                </Text>
-                            </View>
+
+                            {txFields}
                         </View>
-                        <View style={styles.separator}/>
+
                     </ScrollView>
                 </View>
 
@@ -273,7 +349,7 @@ var styles = StyleSheet.create({
     toolBar: {
         height: 45,
         flexDirection: 'row',
-        paddingBottom:5
+        paddingBottom: 5
     },
     cancelBox: {
         padding: 10,
@@ -336,6 +412,9 @@ var styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
         flex: 1
     },
+    txFields: {
+        flex: 1
+    },
     fieldBox: {
         padding: 10,
         height: 70
@@ -352,7 +431,26 @@ var styles = StyleSheet.create({
     },
     fieldValueLabel: {
         color: "#9e9e9e"
+    },
+    txFieldStartBox: {
+        flexDirection: 'row',
+        padding:10,
+        height: 50,
+    },
+    txFieldLabelBox: {
+        flexDirection: 'row',
+        margin: 10,
+        marginLeft: 0,
+        height: 40,
+        backgroundColor: '#dddddd'
+    },
+    txFieldLabel: {
+        color: '#000000',
+        fontSize: 17,
+        padding: 10,
+        fontWeight: 'bold'
     }
+
 });
 
 const mapStateToProps = (state) => ({

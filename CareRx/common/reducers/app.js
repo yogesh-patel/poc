@@ -16,7 +16,25 @@ export default createReducer(initialState, {
             'loadingMessage':'Please Wait.'
         });
     },
+    'FETCHING_PRESCRIPTION': state => {
+        return Object.assign({}, state, {
+            'isFetching': true,
+            'loadingMessage':'Getting Patient Information'
+        });
+    },
+    'PRESCRIPTION_DATA_RECEIVED': state => {
+        return Object.assign({}, state, {
+            'isFetching': false,
+            'loadingMessage':''
+        });
+    },
     'LOGIN_USER_SUCCESS': state => {
+        return Object.assign({}, state, {
+            'isFetching': false,
+            'loadingMessage':''
+        });
+    },
+    'DUPLICATE_ACCOUNT_NAME':state => {
         return Object.assign({}, state, {
             'isFetching': false,
             'loadingMessage':''

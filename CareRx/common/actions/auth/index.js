@@ -5,6 +5,7 @@ import { checkHttpStatus, parseJSON } from '../../util';
 import {LOGIN_USER_REQUEST, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../../constants';
 import config from '../../config';
 import {Actions} from 'react-native-router-flux'
+import {fetchPrescriptions} from '../prescription';
 var jsonParser = require('x2js');
 
 export function loginUser(userName, password, redirect = "/") {
@@ -19,11 +20,12 @@ export function loginUser(userName, password, redirect = "/") {
         var x2js = new jsonParser();
         var json = x2js.xml2js(xmlResponse); //returns a string containing the JSON structure by default
         console.log(json);
+
+        //fetch prescriptions
         var interval = setInterval(()=>{
             clearInterval(interval);
-            dispatch({type:'LOGIN_USER_SUCCESS'});
-            Actions.dashboard();
-        },1000);
+            dispatch(fetchPrescriptions());
+        },500);
     }
 }
 
@@ -64,4 +66,33 @@ export function onSelectedCity(newCity){
         payload:newCity
     }
     )
+}
+
+export function onStoreSelected(selectedStore){
+    return (
+    {
+        type:'STORE_SELECTED',
+        payload:selectedStore
+    }
+    )
+}
+
+export function createAccount(accountDetail){
+    return function(dispatch){
+        dispatch({type:'LOGIN_USER_REQUEST'});
+
+        //Check Duplicate Account Name
+
+        //var interval = setInterval(()=>{
+        //    clearInterval(interval);
+        //    dispatch({type:'DUPLICATE_ACCOUNT_NAME'});
+        //},1000);
+
+
+        //Send Create Account Request
+
+        //On Success - dispatch for login
+        dispatch(loginUser(accountDetail.accountName,accountDetail.password));
+
+    }
 }

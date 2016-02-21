@@ -45,8 +45,8 @@ class MedicationProfile extends React.Component {
     renderMedicationData(data) {
         return (
             <TouchableOpacity style={{flex:1}}
-                                key={data.rxNumber}
-                                onPress={this.onSelected.bind(this,data)}>
+                              key={data.rxNumber}
+                              onPress={this.onSelected.bind(this,data)}>
                 <View style={[{flex:1}]}>
                     <View style={[styles.rowContainer]}>
                         <View style={styles.dataContainer}>
@@ -80,10 +80,11 @@ class MedicationProfile extends React.Component {
         );
     }
 
-    getFilteredData(){
-        var {medicationDataList} = this.props;
-        var newDataList = medicationDataList;
-        if(this.state.searchText && this.state.searchText.trim() != '') {
+    getFilteredData() {
+        var {profiles,selectedProfile} = this.props;
+        var medicationDataList = profiles[selectedProfile].medicationDataList;
+        var newDataList = profiles[selectedProfile].medicationDataList;
+        if (this.state.searchText && this.state.searchText.trim() != '') {
             newDataList = _.filter(medicationDataList, (data)=> {
                 return (data.name.toUpperCase().indexOf(this.state.searchText.toUpperCase()) != -1
                 || data.doctorName.toUpperCase().indexOf(this.state.searchText.toUpperCase()) != -1
@@ -93,9 +94,10 @@ class MedicationProfile extends React.Component {
 
         return newDataList;
     }
+
     onSearchCancel() {
         LayoutAnimation.easeInEaseOut();
-        this.setState({searchSelected: false,searchText:null});
+        this.setState({searchSelected: false, searchText: null});
     }
 
     onSearch() {
@@ -103,9 +105,10 @@ class MedicationProfile extends React.Component {
         this.setState({searchSelected: true});
     }
 
-    onSearchSubmit(){
+    onSearchSubmit() {
         console.log(this.state.searchText);
     }
+
     render() {
         var toolBar = null;
         if (this.state.searchSelected) {
@@ -165,12 +168,13 @@ class MedicationProfile extends React.Component {
             </View>;
         }
 
-        var {medicationDataList} = this.props;
-        var medicationData = this.dataSource.cloneWithRows(this.getFilteredData(medicationDataList));
+        var {profiles,selectedProfile} = this.props;
+        var medicationData = this.dataSource.cloneWithRows(this.getFilteredData(profiles[selectedProfile].medicationDataList));
         return (
             <View style={styles.container}>
                 {toolBar}
-                <View style={[styles.separator,{marginLeft: 10,marginRight: 10,backgroundColor:config.backgroundColor}]}/>
+                <View
+                    style={[styles.separator,{marginLeft: 10,marginRight: 10,backgroundColor:config.backgroundColor}]}/>
                 <View style={styles.listViewBox}>
                     <ListView
                         dataSource={medicationData}
@@ -224,7 +228,7 @@ var styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 55,
-        marginTop:5,
+        marginTop: 5,
         flex: 1
     },
     horizontalSeparator: {
@@ -297,19 +301,20 @@ var styles = StyleSheet.create({
         alignItems: 'center'
     },
     cancelButtonBox: {
-        height:30,
+        height: 30,
         flex: 0.2,
         justifyContent: 'center',
         alignItems: 'center'
     },
     cancelButton: {
         color: config.segmentedTintColor,
-        fontWeight:'bold'
+        fontWeight: 'bold'
     }
 });
 
 const mapStateToProps = (state) => ({
-    medicationDataList: state.profiles.medicationDataList
+    selectedProfile: state.profiles.selectedProfile,
+    profiles: state.profiles.profiles
 });
 
 const mapDispatchToProps = (dispatch) => ({

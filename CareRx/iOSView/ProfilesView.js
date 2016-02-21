@@ -20,6 +20,9 @@ import React, {
     Animated,
     TouchableOpacity,
     TouchableWithoutFeedback} from 'react-native';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
 import MedicationProfile from './MedicationProfile';
 import AllergiesView from './Allergies';
@@ -62,7 +65,9 @@ class ProfilesView extends React.Component {
                 destructiveButtonIndex: DESTRUCTIVE_INDEX,
             },
             (buttonIndex) => {
-                this.setState({clicked: BUTTONS[buttonIndex]});
+                if (buttonIndex == 0) {
+                    Actions.openCamera();
+                }
             });
     }
 
@@ -129,18 +134,26 @@ class ProfilesView extends React.Component {
 
         Animated.timing(
             this.state.profileBoxOpacity,
-            {toValue: 0.7}
+            {toValue: 0.8}
         ).start();
-
 
 
     }
 
+    onPDCConfig() {
+        Actions.pdcConfig();
+    }
+
     render() {
+
+        var {profiles,selectedProfile} = this.props;
+
+        var profile = profiles[selectedProfile];
+
         var selectedOption = null;
         if (this.state.selectedIndex == 0) {
             selectedOption = <MedicationProfile />;
-        } else if (this.state.selectedIndex == 1){
+        } else if (this.state.selectedIndex == 1) {
             selectedOption = <AllergiesView />;
         } else {
             selectedOption = <View/>;
@@ -150,8 +163,29 @@ class ProfilesView extends React.Component {
         var profileBoxStyle = styles.profileBoxStyle;
 
         if (this.state.showOverlay) {
-            maskStyle = [styles.maskComp,{bottom:0,right:0}];
-            profileBoxStyle=[styles.profileBoxStyle,{top:80,right:0,width:100}];
+            maskStyle = [styles.maskComp, {bottom: 0, right: 0}];
+            profileBoxStyle = [styles.profileBoxStyle, {top: 80, right: 0, width: 100}];
+        }
+
+        var profileImage = null;
+        if (this.props.profilePic) {
+
+            profileImage = <Image style={{width:66,height:66,borderRadius:33}}
+                                  source={{uri: this.props.profilePic}}
+                />;
+        } else {
+            profileImage = <Image source={require('../common/images/profileImage.png')}/>;
+        }
+
+        var pdcInfo = null;
+        if (this.props.pdcValue) {
+            pdcInfo = <Text style={styles.countLabel}>
+                65%
+            </Text>;
+
+        } else {
+            pdcInfo = <Image style={{width:22,height:22,marginTop:4}}
+                             source={require('../common/images/setting.png')}/>;
         }
         return (
             <View style={styles.container}>
@@ -162,13 +196,14 @@ class ProfilesView extends React.Component {
                     <View style={styles.profileBox}>
                         <View style={styles.profileImageBox}>
                             <TouchableOpacity onPress={this.showActionSheet.bind(this)}>
-                                <Image source={require('../common/images/profileImage.png')}/>
+                                {profileImage}
                             </TouchableOpacity>
                         </View>
                         <View style={{flex:1}}>
                             <View style={styles.profileInfoTopBox}>
                                 <View style={styles.profileNameBox}>
-                                    <Text style={styles.profileName}>Yogesh Patel</Text>
+                                    <Text
+                                        style={styles.profileName}>{profile.firstName + ' ' + profile.lastName }</Text>
                                 </View>
                                 <View style={styles.editIconBox}>
                                     <TouchableOpacity style={[styles.editIconBox,{flex:1}]}
@@ -184,7 +219,7 @@ class ProfilesView extends React.Component {
                                     <View style={[styles.refillCountBox,{flex:1}]}>
                                         <View style={styles.refillCount}>
                                             <Text style={styles.countLabel}>
-                                                12
+                                                {profile.refillReminder}
                                             </Text>
                                         </View>
                                         <View style={styles.refillCountLabel}>
@@ -196,14 +231,11 @@ class ProfilesView extends React.Component {
                                 </TouchableOpacity>
                                 <View
                                     style={[styles.horizontalSeparator,{backgroundColor:config.profileSeparatorColor}]}/>
-                                <TouchableOpacity style={styles.refillCountBox}>
+                                <TouchableOpacity style={styles.refillCountBox} onPress={this.onPDCConfig.bind(this)}>
                                     <View style={[styles.refillCountBox,{flex:1}]}>
                                         <View style={styles.refillCount}>
-                                            {/*<Text style={styles.countLabel}>
-                                             65%
-                                             </Text>*/}
-                                            <Image style={{width:22,height:22,marginTop:4}}
-                                                   source={require('../common/images/setting.png')}/>
+                                            {pdcInfo}
+
                                         </View>
                                         <View style={styles.refillCountLabel}>
                                             <Text style={styles.labelText}>
@@ -239,13 +271,49 @@ class ProfilesView extends React.Component {
                 <Animated.View style={[maskStyle,{opacity:this.state.overlayOpacity}]}>
                     <TouchableWithoutFeedback style={{flex:1}}
                                               onPress={this.hideProfileSelectionOverlay.bind(this)}>
-                        <View style={{flex:1}} />
+                        <View style={{flex:1}}/>
                     </TouchableWithoutFeedback>
                 </Animated.View>
 
                 <Animated.View style={[profileBoxStyle,{opacity:this.state.profileBoxOpacity}]}>
-                    <View style={styles.subProfileBox}>
-                    </View>
+                    <ScrollView style={{flex:1}}>
+                        <View style={styles.subProfileBox}>
+                            <TouchableOpacity style={{flex:1}}>
+                                <View style={styles.subProfileBoxTouch}>
+                                    <View style={styles.profileImageBox}>
+                                        <Image source={require('../common/images/profileUser.png')}/>
+                                    </View>
+                                    <View style={styles.subProfileNameBox}>
+                                        <Text style={styles.subProfileLabel}>Abhiyudya</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.subProfileBox}>
+                            <TouchableOpacity style={{flex:1}}>
+                                <View style={styles.subProfileBoxTouch}>
+                                    <View style={styles.profileImageBox}>
+                                        <Image source={require('../common/images/profileUser.png')}/>
+                                    </View>
+                                    <View style={styles.subProfileNameBox}>
+                                        <Text style={styles.subProfileLabel}>Smita</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.subProfileBox}>
+                            <TouchableOpacity style={{flex:1}}>
+                                <View style={styles.subProfileBoxTouch}>
+                                    <View style={styles.profileImageBox}>
+                                        <Image source={require('../common/images/addProfile.png')}/>
+                                    </View>
+                                    <View style={styles.subProfileNameBox}>
+                                        <Text style={styles.subProfileLabel}>Add Profile</Text>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </ScrollView>
                 </Animated.View>
             </View>
         );
@@ -379,9 +447,9 @@ var styles = StyleSheet.create({
         borderTopRightRadius: 50,
         borderBottomLeftRadius: 50,
         borderBottomRightRadius: 50,
-        backgroundColor:'000000',
-        position:'absolute',
-        top:30,
+        backgroundColor: '000000',
+        position: 'absolute',
+        top: 30,
     },
 
     moreProfileLabel: {
@@ -389,34 +457,53 @@ var styles = StyleSheet.create({
         color: '#dddddd'
     },
 
-    profileBoxStyle:{
-        position:'absolute',
-        backgroundColor:config.segmentedTintColor,
+    profileBoxStyle: {
+        position: 'absolute',
+        backgroundColor: "#444644",
         borderTopLeftRadius: 10,
         borderTopRightRadius: 0,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 0,
-        opacity:0,
-        right:0-screenWidth,
-        top:0,
-        height:200
+        opacity: 0,
+        right: 0 - screenWidth,
+        top: 0,
+        height: 300
     },
-    maskComp:{
-        position:'absolute',
-        backgroundColor:'#000000',
-        opacity:0,
-        left:0-screenWidth,
-        top:0,
+    maskComp: {
+        position: 'absolute',
+        backgroundColor: '#000000',
+        opacity: 0,
+        left: 0 - screenWidth,
+        top: 0,
     },
-    subProfileBox:{
-        flex:1,
-        maxHeight:80,
-        borderWidth:1,
-        borderColor:'#FFFFFF',
-        borderRadius:5,
-        margin:10,
-        alignItems:'center'
+    subProfileBox: {
+        flex: 1,
+        paddingTop: 10,
+        maxHeight: 80,
+        borderRadius: 5,
+        margin: 10,
+        alignItems: 'center'
+    },
+    subProfileBoxTouch: {
+        flex: 1,
+        alignItems: 'center'
+    },
+    subProfileNameBox: {
+        flex: 1
+    },
+    subProfileLabel: {
+        color: '#FFFFFF',
+        fontSize: 12
     }
 });
 
-export default ProfilesView;
+const mapStateToProps = (state) => ({
+    selectedProfile: state.profiles.selectedProfile,
+    profiles: state.profiles.profiles,
+    profilePic: state.profiles.profilePic,
+    pdcValue: state.profiles.pdcValue
+});
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilesView);

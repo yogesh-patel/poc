@@ -76,7 +76,9 @@ class LoginView extends React.Component {
                     <View style={styles.loginBox}>
                         <View style={{flex:1}}>
                             <TextInput
-                                style={{height: 40, marginTop:10,padding:5,backgroundColor: '#FFFFFF',borderColor:'#CCCCCC', borderWidth: 1}}
+                                style={{height: 40, marginTop:10,padding:5,
+                                backgroundColor: '#FFFFFF',borderColor:'#CCCCCC',
+                                borderWidth: 1,borderRadius:3}}
                                 onChangeText={(username) => this.setState({username})}
                                 placeholder="Username"
                                 placeholderTextColor="#CCCCCC"
@@ -92,7 +94,9 @@ class LoginView extends React.Component {
                                 />
                             <TextInput
                                 ref='password'
-                                style={{height: 40, marginTop:10,padding:5,backgroundColor: '#FFFFFF',borderColor:'#CCCCCC', borderWidth: 1}}
+                                style={{height: 40, marginTop:10,padding:5,
+                                backgroundColor: '#FFFFFF',borderColor:'#CCCCCC',
+                                borderWidth: 1,borderRadius:3}}
                                 onChangeText={(password) => this.setState({password})}
                                 placeholder="Password"
                                 secureTextEntry
@@ -190,7 +194,8 @@ var styles = StyleSheet.create({
     },
     loginButtonBox: {
         marginTop: 20,
-        backgroundColor: config.loginButtonBackColor,
+        borderRadius:3,
+        backgroundColor: 'rgb(38,196,70)',
         justifyContent: 'center',
     },
     loginButtonTouchBox: {
@@ -201,12 +206,13 @@ var styles = StyleSheet.create({
     },
     createNewAccountBox: {
         marginTop: 20,
-        backgroundColor: '#2090CC',
-        padding: 15,
+        borderRadius:3,
+        backgroundColor: config.segmentedTintColor,
         justifyContent: 'center',
     },
     createNewAccountTouchBox: {
         flexDirection: 'row',
+        padding:15,
         justifyContent: 'center',
         flex: 1
     },

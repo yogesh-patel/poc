@@ -1,5 +1,5 @@
 /**
- * Created by synerzip on 19/02/16.
+ * Created by synerzip on 21/02/16.
  */
 var React = require('react-native');
 var {
@@ -26,36 +26,36 @@ import { connect } from 'react-redux';
 import * as authActionCreator from '../common/actions/auth';
 import {Actions} from 'react-native-router-flux'
 
-class CityListView extends React.Component {
+class SelectStoreView extends React.Component{
+
     constructor(props) {
         super(props);
 
-        this.cityData = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.storeData = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.state = {};
     }
 
-    onCancel(){
+    onCancel() {
         Actions.pop();
     }
 
     renderRow(rowData) {
-
         var isSelected = <View />;
-        if (this.props.selectedCity != null) {
-            if(this.props.selectedCity == rowData) {
+        if (this.props.selectedStore != null) {
+            if (this.props.selectedStore.id == rowData.id) {
                 isSelected = <Image style={{width:30,height:30}}
                                     source={require('../common/images/selected.png')}/>;
             }
         }
-        console.log("Row ");
+        //console.log("Row ");
         return (
-            <TouchableOpacity key={rowData+''}
+            <TouchableOpacity key={rowData.id+''}
                               onPress={() => this.rowPressed(rowData)}
                               underlayColor='#dddddd'>
                 <View>
                     <View style={styles.rowContainer}>
-                        <View  style={styles.textContainer}>
-                            <Text style={styles.rowTitle}>{ rowData }</Text>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.stateLabel}>{ rowData.name }</Text>
                         </View>
                         <View style={styles.selectedIcon}>
                             {isSelected}
@@ -68,13 +68,8 @@ class CityListView extends React.Component {
     }
 
     render() {
-        //AlertIOS.alert("City", this.props.cityList);
-        var cityDataList = [];
-        if(this.props.cityList){
-            cityDataList = this.props.cityList[this.props.selectedState];
-        }
-        console.log(cityDataList);
-        return(
+        console.log("State list " + this.stateList);
+        return (
             <View style={styles.container}>
                 <View style={styles.toolBar}>
                     <View style={styles.cancelBox}>
@@ -86,7 +81,7 @@ class CityListView extends React.Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.titleBox}>
-                        <Text style={styles.title}>Select City</Text>
+                        <Text style={styles.title}>Select Store</Text>
                     </View>
                     <View style={styles.doneBox}>
                         <TouchableOpacity>
@@ -94,8 +89,8 @@ class CityListView extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <ListView style ={{backgroundColor: 'white'}}
-                          dataSource={this.cityData.cloneWithRows(cityDataList)}
+                <ListView style={{backgroundColor: 'white'}}
+                          dataSource={this.storeData.cloneWithRows(this.props.stores)}
                           renderRow={this.renderRow.bind(this)}
                           automaticallyAdjustContentInsets={false}
                           contentInset={{bottom:0}}
@@ -108,7 +103,7 @@ class CityListView extends React.Component {
     }
 
     rowPressed(rowData) {
-        this.props.userAccountActions.onSelectedCity(rowData);
+        this.props.userAccountActions.onStoreSelected(rowData);
         Actions.pop();
     }
 }
@@ -165,8 +160,8 @@ var styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#dddddd'
     },
-    rowTitle: {
-        fontSize: 20,
+    stateLabel: {
+        fontSize: 18,
         color: '#656565'
     },
     rowContainer: {
@@ -179,16 +174,16 @@ var styles = StyleSheet.create({
         marginLeft: -12
     },
 
+
 });
 
 const mapStateToProps = (state) => ({
-    cityList : state.userProfile.citiesList,
-    selectedCity: state.userProfile.selectedCity,
-    selectedState:state.userProfile.selectedState.name
+    stores: state.stores.stores,
+    selectedStore: state.stores.selectedStore
 });
 
 const mapDispatchToProps = (dispatch) => ({
     'userAccountActions': bindActionCreators(authActionCreator, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CityListView);
+export default connect(mapStateToProps, mapDispatchToProps)(SelectStoreView);

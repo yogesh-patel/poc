@@ -44,35 +44,33 @@ class Allergies extends React.Component {
 
     renderAllergiesData(data) {
         return (
-            <TouchableOpacity style={{flex:1}}
-                              key={data.accode}
-                              onPress={this.onSelected.bind(this,data)}>
-                <View style={[{flex:1}]}>
-                    <View style={[styles.rowContainer]}>
-                        <View style={styles.dataContainer}>
-                            <View style={styles.codeNumberBox}>
-                                <View style={styles.dueDateBox}>
-                                    <Text style={[styles.codeNumberLabel]}>Code - {data.accode}</Text>
-                                </View>
+
+            <View style={[{flex:1}]}>
+                <View style={[styles.rowContainer]}>
+                    <View style={styles.dataContainer}>
+                        <View style={styles.codeNumberBox}>
+                            <View style={styles.dueDateBox}>
+                                <Text style={[styles.codeNumberLabel]}>Code - {data.accode}</Text>
                             </View>
-                            <View style={styles.extraInfoBox}>
-                                <View style={styles.dueDateBox}>
-                                    <Text style={[styles.descriptionLabel]}>Description : {data.Description}</Text>
-                                </View>
+                        </View>
+                        <View style={styles.extraInfoBox}>
+                            <View style={styles.dueDateBox}>
+                                <Text style={[styles.descriptionLabel]}>Description : {data.Description}</Text>
                             </View>
                         </View>
                     </View>
-                    <View style={styles.separator}/>
                 </View>
-            </TouchableOpacity>
+                <View style={styles.separator}/>
+            </View>
 
         );
     }
 
-    getFilteredData(){
-        var {allergiesDataList} = this.props;
+    getFilteredData() {
+        var {profiles,selectedProfile} = this.props;
+        var allergiesDataList = profiles[selectedProfile].allergies;
         var newDataList = allergiesDataList;
-        if(this.state.searchText && this.state.searchText.trim() != '') {
+        if (this.state.searchText && this.state.searchText.trim() != '') {
             newDataList = _.filter(allergiesDataList, (data)=> {
                 return (data.accode.toString().toUpperCase().indexOf(this.state.searchText.toUpperCase()) != -1
                 || data.Description.toUpperCase().indexOf(this.state.searchText.toUpperCase()) != -1);
@@ -81,9 +79,10 @@ class Allergies extends React.Component {
 
         return newDataList;
     }
+
     onSearchCancel() {
         LayoutAnimation.easeInEaseOut();
-        this.setState({searchSelected: false,searchText:null});
+        this.setState({searchSelected: false, searchText: null});
     }
 
     onSearch() {
@@ -91,9 +90,10 @@ class Allergies extends React.Component {
         this.setState({searchSelected: true});
     }
 
-    onSearchSubmit(){
+    onSearchSubmit() {
         console.log(this.state.searchText);
     }
+
     render() {
         var toolBar = null;
         if (this.state.searchSelected) {
@@ -106,7 +106,8 @@ class Allergies extends React.Component {
                         <TextInput
                             style={{height: 25,padding:5,backgroundColor: '#FFFFFF'}}
                             onChangeText={(searchText) => this.setState({searchText})}
-                            placeholder="Drug, Doctor, RxNumber..."
+                            autoFocus
+                            placeholder="Code, Description..."
                             placeholderTextColor="#CCCCCC"
                             autoCorrect={false}
                             clearButtonMode="always"
@@ -117,11 +118,12 @@ class Allergies extends React.Component {
                             enablesReturnKeyAutomatically
                             keyboardAppearance="light"
                             autoCapitalize="none"
-                        />
+                            />
                     </View>
                 </View>
                 <View style={styles.cancelButtonBox}>
-                    <TouchableOpacity onPress={this.onSearchCancel.bind(this)}>
+                    <TouchableOpacity style={[styles.cancelButtonBox,{flex:1,paddingLeft: 5}]}
+                                      onPress={this.onSearchCancel.bind(this)}>
                         <Text style={styles.cancelButton}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
@@ -151,12 +153,13 @@ class Allergies extends React.Component {
             </View>;
         }
 
-        var {allergies} = this.props;
-        var allergies = this.dataSource.cloneWithRows(this.getFilteredData(allergies));
+        var {profiles,selectedProfile} = this.props;
+        var allergies = this.dataSource.cloneWithRows(this.getFilteredData(profiles[selectedProfile].allergies));
         return (
             <View style={styles.container}>
                 {toolBar}
-                <View style={[styles.separator,{marginLeft: 10,marginRight: 10,backgroundColor:config.backgroundColor}]}/>
+                <View
+                    style={[styles.separator,{marginLeft: 10,marginRight: 10,backgroundColor:config.backgroundColor}]}/>
                 <View style={styles.listViewBox}>
                     <ListView
                         dataSource={allergies}
@@ -167,7 +170,7 @@ class Allergies extends React.Component {
                         scrollEventThrottle={300}
                         onEndReachedThreshold={2}
                         directionalLockEnabled={true}
-                    />
+                        />
                 </View>
             </View>
         )
@@ -210,7 +213,7 @@ var styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 55,
-        marginTop:5,
+        marginTop: 5,
         flex: 1
     },
     horizontalSeparator: {
@@ -280,19 +283,20 @@ var styles = StyleSheet.create({
         alignItems: 'center'
     },
     cancelButtonBox: {
+        height: 30,
         flex: 0.2,
         justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 5
+        alignItems: 'center'
     },
     cancelButton: {
-        color: '#0080FF',
-        fontWeight:'bold'
+        color: config.segmentedTintColor,
+        fontWeight: 'bold'
     }
 });
 
 const mapStateToProps = (state) => ({
-    allergiesDataList: state.profiles.allergies
+    selectedProfile: state.profiles.selectedProfile,
+    profiles: state.profiles.profiles
 });
 
 const mapDispatchToProps = (dispatch) => ({
