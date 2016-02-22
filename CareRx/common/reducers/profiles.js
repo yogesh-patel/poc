@@ -17,9 +17,12 @@ const initialState = {
 
 export default createReducer(initialState, {
     'PRESCRIPTION_DATA_RECEIVED': (state, payload) => {
+        var profileObject = {};
+        var key = payload.firstName+"-"+payload.lastName;
+        profileObject[key] = payload;
         return Object.assign({}, state, {
-            'profiles': payload,
-            'selectedProfile':'1'
+            'profiles': profileObject,
+            'selectedProfile':key
         });
     },
     'MEDICATION_SELECTED': (state, payload) => {

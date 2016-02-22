@@ -53,10 +53,24 @@ class LoginView extends React.Component {
         Actions.createAccount();
     }
 
+    onPINSubmit(pin){
+        this.props.authActions.activateProfile(pin);
+        this.props.authActions.resetInvalidPin();
+    }
     componentWillReceiveProps(nextProps){
         if(nextProps.loginFail){
             AlertIOS.alert(nextProps.loginFailMessage);
             this.props.authActions.removeLoginFail();
+        }else if(nextProps.accountActivationNeed){
+            AlertIOS.prompt(
+                'Enter PIN', null,
+                [{text: 'Ok', onPress: this.onPINSubmit.bind(this)}]
+            );
+        }else if(nextProps.invalidPin){
+            AlertIOS.prompt(
+                'Invalid PIN, Enter Again', null,
+                [{text: 'Ok', onPress: this.onPINSubmit.bind(this)}]
+            );
         }
     }
     render() {
@@ -248,6 +262,8 @@ var styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
     "loginFail":state.auth.loginFail,
+    "accountActivationNeed":state.auth.accountActivationNeed,
+    "invalidPin":state.auth.invalidPin,
     "loginFailMessage":state.auth.loginFailMessage
 });
 

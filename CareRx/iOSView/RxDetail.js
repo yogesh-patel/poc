@@ -64,7 +64,7 @@ class RxDetail extends React.Component {
         var {selectedMedication} = this.props;
         var txFields = _.map(selectedMedication.txFields, (txField)=> {
             return (
-                <View key={txField.lastFilled}>
+                <View key={txField.txNumber}>
                     <View style={styles.txFieldLabelBox}>
 
                     </View>

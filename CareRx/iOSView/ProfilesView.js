@@ -201,7 +201,7 @@ class ProfilesView extends React.Component {
                         </View>
                         <View style={{flex:1}}>
                             <View style={styles.profileInfoTopBox}>
-                                <View style={styles.profileNameBox}>
+                                <View style={[styles.profileNameBox,{flexWrap:'nowrap',overflow:'hidden'}]}>
                                     <Text
                                         style={styles.profileName}>{profile.firstName + ' ' + profile.lastName }</Text>
                                 </View>
