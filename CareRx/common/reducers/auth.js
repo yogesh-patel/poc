@@ -13,7 +13,9 @@ const initialState = {
     "isAuthenticating": false,
     "isAuthenticated": false,
     "loginFail":false,
-    "loginFailMessage":""
+    "loginFailMessage":"",
+    "accountActivationNeed":false,
+    "invalidPin":false
 };
 
 export default createReducer(initialState, {
@@ -22,6 +24,36 @@ export default createReducer(initialState, {
             'isAuthenticating': true,
             "loginFail":false,
             "loginFailMessage":""
+        });
+    },
+    'ACCOUNT_ACTIVATION_NEEDED': state => {
+        return Object.assign({}, state, {
+            "accountActivationNeed":true,
+            "invalidPin":false
+        });
+    },
+    'ACCOUNT_ACTIVATION_DONE': state => {
+        return Object.assign({}, state, {
+            "accountActivationNeed":false,
+            "invalidPin":false
+        });
+    },
+    'PRESCRIPTION_DATA_RECEIVED':state => {
+        return Object.assign({}, state, {
+            "accountActivationNeed":false,
+            "invalidPin":false
+        });
+    },
+    'INVALID_PIN': state => {
+        return Object.assign({}, state, {
+            "accountActivationNeed":false,
+            "invalidPin":true
+        });
+    },
+    'RESET_INVALID_PIN': state => {
+        return Object.assign({}, state, {
+            "accountActivationNeed":false,
+            "invalidPin":false
         });
     },
     'LOGIN_USER_SUCCESS': state => {

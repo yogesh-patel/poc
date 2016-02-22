@@ -23,15 +23,17 @@ export function createAccount(accountDetail) {
                 dispatch({type: 'DUPLICATE_ACCOUNT_NAME'});
             } else {
                 var phoneSplits = accountDetail.phoneNumber.split(' ');
+                console.log(accountDetail);
+                console.log("RxNumber"+ accountDetail.rxNumber);
                 var createAccountParams = "CHAIN_ID=" + config.CHAIN_ID +
-                    "&FLOW_POS=317&STORE_ID=ALL&accountName" + accountDetail.accountName +
+                    "&FLOW_POS=317&STORE_ID=ALL&accountName=" + accountDetail.accountName +
                     "&password=" + accountDetail.password +
                     "&passwordConfirmation=" + accountDetail.passwordConfirmation +
                     "&firstName=" + accountDetail.firstName +
                     "&lastName=" + accountDetail.lastName +
                     "&address1=" + accountDetail.address1 +
                     "&city=" + accountDetail.city +
-                    "&state=" + accountDetail.state +
+                    "&state=" + 'TX' +
                     "&zipCode=" + accountDetail.zipCode +
                     "&areaCode=" + phoneSplits[0] +
                     "&prefix=" + phoneSplits[1] +
@@ -44,10 +46,13 @@ export function createAccount(accountDetail) {
                     "&rxNumber=" + parseInt(accountDetail.rxNumber) +
                     "&selectedStoreId=" + accountDetail.selectedStoreId;
 
+                console.log(createAccountParams);
                 post("/AccountRegisterService", createAccountParams).then((createAccountResponse)=> {
                     console.log(createAccountResponse);
                     if(createAccountResponse.XmlMessage.AccountRegisterResponse.status._code == '200'){
+
                         dispatch(loginUser(accountDetail.accountName, accountDetail.password));
+
                     }else{
                         console.log(createAccountResponse);
                     }
@@ -57,6 +62,33 @@ export function createAccount(accountDetail) {
         });
 
     }
+}
+
+export function activateProfile(pin) {
+    return function (dispatch) {
+        dispatch({type: 'ACTIVATE_PROFILE_REQUEST'});
+        var activateEndPoint = "/ActivateProfileService";
+        var activateReqParams = "CHAIN_ID="+config.CHAIN_ID+"&WebLogicSession="+config.loginToken+"&Action=activate&PIN="+pin+"&FLOW_POS=317&STORE_ID=ALL";
+        post(activateEndPoint,activateReqParams).
+        then((activateResponse)=>{
+            if(activateResponse.XmlMessage.ActivateProfileResponse.status._code == '200'){
+                dispatch({type:'ACCOUNT_ACTIVATION_DONE'});
+                dispatch(fetchPrescriptions());
+            }else{
+                dispatch({type:'INVALID_PIN'});
+            }
+
+        });
+
+    }
+}
+
+export function resetInvalidPin(){
+    return (
+    {
+        type:'RESET_INVALID_PIN'
+    }
+    )
 }
 
 export function loginUser(userName, password, redirect = "/") {

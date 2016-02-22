@@ -40,6 +40,27 @@ class CreateAccountScreen extends React.Component {
     componentDidMount(){
         this.props.userAccountActions.getStores();
     }
+
+    //onPINSubmit(pin){
+    //
+    //    this.props.userAccountActions.resetInvalidPin();
+    //    this.props.userAccountActions.activateProfile(pin);
+    //}
+    //
+    //componentWillReceiveProps(nextProps){
+    //    if(nextProps.accountActivationNeed){
+    //        AlertIOS.prompt(
+    //            'Enter PIN', null,
+    //            [{text: 'Ok', onPress: this.onPINSubmit.bind(this)}]
+    //        );
+    //    }else if(nextProps.invalidPin){
+    //        AlertIOS.prompt(
+    //            'Invalid PIN, Enter Again', null,
+    //            [{text: 'Ok', onPress: this.onPINSubmit.bind(this)}]
+    //        );
+    //    }
+    //}
+
     onCancel() {
         Actions.pop();
     }
@@ -550,13 +571,13 @@ class CreateAccountScreen extends React.Component {
                     <View style={styles.inputBox}>
                         <TextInput
                             style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
-                            onChangeText={(rxnumber) => this.setState({rxnumber})}
+                            onChangeText={(rxNumber) => this.setState({rxNumber})}
                             ref="rxnumber"
                             placeholder="Rx Number"
                             placeholderTextColor="#CCCCCC"
                             autoCorrect={false}
                             clearButtonMode="always"
-                            value={this.state.rxnumber}
+                            value={this.state.rxNumber}
                             returnKeyType="default"
                             onEndEditing={this.onRxNumberSubmit.bind(this)}
                             selectTextOnFocus
@@ -810,7 +831,9 @@ const mapStateToProps = (state) => ({
     selectedState: state.userProfile.selectedState,
     selectedCity: state.userProfile.selectedCity,
     selectedStore: state.stores.selectedStore,
-    duplicateAccount: state.userProfile.duplicateAccount
+    duplicateAccount: state.userProfile.duplicateAccount,
+    "accountActivationNeed":state.auth.accountActivationNeed,
+    "invalidPin":state.auth.invalidPin,
 });
 
 const mapDispatchToProps = (dispatch) => ({
