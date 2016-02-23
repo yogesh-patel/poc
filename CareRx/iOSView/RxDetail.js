@@ -299,7 +299,7 @@ class RxDetail extends React.Component {
                         <View style={styles.fieldBox}>
                             <View style={styles.fieldNameBox}>
                                 <Text style={styles.fieldLabel}>
-                                    Doctor Phone
+                                    Prescriber Phone
                                 </Text>
                             </View>
                             <View style={styles.fieldValueBox}>

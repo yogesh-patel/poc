@@ -79,7 +79,7 @@ class ProfilesView extends React.Component {
             (buttonIndex) => {
                 //this.setState({clicked: EDIT_BUTTONS[buttonIndex]});
                 if (buttonIndex == 0) {
-                    Actions.createAccount();
+                   // Actions.createAccount();
                 }
             });
     }
