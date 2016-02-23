@@ -65,7 +65,7 @@ class MedicationProfile extends React.Component {
                                 </View>
                                 <View style={styles.statusBox}>
                                     <Text
-                                        style={[styles.inventoryDate]}>{data.lastFilled}</Text>
+                                        style={[styles.inventoryDate]}>{data.writtenDate}</Text>
                                 </View>
                             </View>
                         </View>
