@@ -47,19 +47,11 @@ class CreateAccountScreen extends React.Component {
     //    this.props.userAccountActions.activateProfile(pin);
     //}
     //
-    //componentWillReceiveProps(nextProps){
-    //    if(nextProps.accountActivationNeed){
-    //        AlertIOS.prompt(
-    //            'Enter PIN', null,
-    //            [{text: 'Ok', onPress: this.onPINSubmit.bind(this)}]
-    //        );
-    //    }else if(nextProps.invalidPin){
-    //        AlertIOS.prompt(
-    //            'Invalid PIN, Enter Again', null,
-    //            [{text: 'Ok', onPress: this.onPINSubmit.bind(this)}]
-    //        );
-    //    }
-    //}
+    componentWillReceiveProps(nextProps){
+        if(nextProps.selectedStore != this.props.selectedStore){
+            this.checkDoneEnableState();
+        }
+    }
 
     onCancel() {
         Actions.pop();
@@ -72,9 +64,7 @@ class CreateAccountScreen extends React.Component {
             this.state.firstName &&
             this.state.lastName &&
             this.state.email &&
-            this.state.confirmEmail &&
-
-            this.props.selectedStore) {
+            this.state.confirmEmail) {
             this.setState({enableDone: true});
         } else {
             this.setState({enableDone: false});
@@ -280,10 +270,12 @@ class CreateAccountScreen extends React.Component {
 
     onPhoneNoFocusLost(e) {
         this.setState({phonePadOpen: false});
+        this.checkDoneEnableState();
     }
 
     onRxNumberFocusLost(e) {
         this.setState({rxNoPadOpen: false});
+        this.checkDoneEnableState();
     }
 
     onPhoneNoDone() {
@@ -533,7 +525,13 @@ class CreateAccountScreen extends React.Component {
                         <View style={[styles.separator,{marginLeft:15}]}/>
                         <TextInput
                             style={{height: 40,padding:5,paddingLeft:15,backgroundColor: '#FFFFFF'}}
-                            onChangeText={(phoneno) => this.setState({phoneno})}
+                            onChangeText={(phoneno) => {
+                                var newState = phoneno;
+                                if(phoneno && (phoneno.length == 3 || phoneno.length == 7)){
+                                    newState = phoneno +' ';
+                                }
+                                this.setState({phoneno:newState});
+                            }}
                             ref="phoneno"
                             placeholder="Phone Number"
                             placeholderTextColor="#CCCCCC"
