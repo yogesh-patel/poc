@@ -2,7 +2,7 @@
  * Created by synerzip on 17/02/16.
  */
 import { checkHttpStatus, parseJSON } from '../../util';
-import {MEDICATION_SELECTED, ALLEGY_DELETED, STORE_SELECTED, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../../constants';
+import {MEDICATION_SELECTED, ALLEGY_SELECTED, STORE_SELECTED, LOGIN_USER_FAILURE, LOGIN_USER_SUCCESS, LOGOUT_USER} from '../../constants';
 import config from '../../config';
 import {post} from '../common';
 import {Actions} from 'react-native-router-flux'
@@ -501,15 +501,8 @@ export function onProfilePicCaptured(photoPath) {
 
 export function onDurationSelected(data) {
     return {
-    type: 'PDC_DURATION_SELECTED',
-    payload: data
-    }
-}
-
-export function allergyDeleted(selectedData){
-    return {
-        type:'ALLERGY_DELETED',
-        payload:selectedData
+        type: 'PDC_DURATION_SELECTED',
+        payload: data
     }
 }
 

@@ -6,6 +6,7 @@ import {Router, Route, Schema, Animations, TabBar} from 'react-native-router-flu
 import AppView from './AppView';
 import CreateAccountScreen from './CreateAccountScreen';
 import RxDetail from './RxDetail';
+import AllergyDetail from './AllergyDetail';
 import StatesView from './StatesListView';
 import CityView from './CityListView';
 import { bindActionCreators } from 'redux';
@@ -41,6 +42,10 @@ class RouterConfigComponent extends React.Component{
                 <Route name="rxDetail"
                        sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
                        component={requireMaskComponent(RxDetail)}
+                       hideNavBar={true} type="push" />
+                <Route name="allergyDetail"
+                       sceneConfig={ Navigator.SceneConfigs.FloatFromRight }
+                       component={requireMaskComponent(AllergyDetail)}
                        hideNavBar={true} type="push" />
                 <Route name="storeDetail"
                        sceneConfig={ Navigator.SceneConfigs.FloatFromRight }

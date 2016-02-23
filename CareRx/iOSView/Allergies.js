@@ -37,20 +37,9 @@ class Allergies extends React.Component {
         this.state = {};
     }
 
-    removeA(arr, a) {
-    var what, L = a.length, ax;
-    while (L > 1 && arr.length) {
-        what = a[--L];
-        while ((ax= arr.indexOf(what)) !== -1) {
-            arr.splice(ax, 1);
-        }
-    }
-    return arr;
-}
-
     onSelected(data) {
-        AlertIOS.alert(this.removeA(this.getFilteredData(), data)[0].Description);
-        //this.props.prescriptionActions.allergyDeleted(this.removeA(this.getFilteredData(), data));
+        this.props.prescriptionActions.allergySelected(data);
+        Actions.allergyDetail();
     }
 
     renderAllergiesData(data) {
