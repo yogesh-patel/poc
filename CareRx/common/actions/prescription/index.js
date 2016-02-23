@@ -374,7 +374,7 @@ export function fetchPrescriptions() {
 
                     tempObj.rxNumber = element.rxnum;
                     tempObj.name = element.RxAddendum.prescDrugName;
-                    tempObj.refillRemaining = element.rxnum;
+                    tempObj.refillRemaining = element.refrem;
                     tempObj.expirationDate = element.expire;
                     tempObj.writtenDate = element.first;
                     tempObj.status = element.status;
